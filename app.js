@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const http = require('http')
 require('dotenv').config();
+const { connectToMongoDB } = require('./config/db');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -41,6 +43,7 @@ app.use(function(err, req, res, next) {
 // Create HTTP server and listen on port 5000
 const server = http.createServer(app);
 server.listen(process.env.port, () => {
-  console.log('Server is running on port 5000');
+    connectToMongoDB();
+    console.log('Server is running on port 5000');
 });
 
