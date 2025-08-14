@@ -3,15 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const http = require('http')
+require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -38,4 +36,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+
+// Create HTTP server and listen on port 5000
+const server = http.createServer(app);
+server.listen(process.env.port, () => {
+  console.log('Server is running on port 5000');
+});
+
