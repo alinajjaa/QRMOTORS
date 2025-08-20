@@ -7,8 +7,9 @@ const http = require('http')
 require('dotenv').config();
 const { connectToMongoDB } = require('./config/db');
 
-//var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRouter');
+var vehiculeRoutes = require('./routes/vehiculeRouter');
+var reclamationRoutes = require('./routes/reclaimRouter');
 
 var app = express();
 
@@ -19,6 +20,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/usersR', usersRouter);
+app.use('/vehiculeRoutes', vehiculeRoutes);
+app.use('/reclamationRoutes', reclamationRoutes);
 app.use(function(req, res, next) {
   next(createError(404));
 });
