@@ -14,8 +14,21 @@ const vehiculeSchema = new mongoose.Schema({
   images: [{ type: String }],
   qrCode: { type: String },
   statut: { type: String, enum: ["Disponible", "Réservé", "Vendu"], default: "Disponible" },
+  promotions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Promotion'
+  }],
+  scans: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Scan'
+  }],
+  commandes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Commande'
+  }]
 }, { timestamps: true });
 
 
-const Vehicule = mongoose.model('Vehicule', vehiculeSchema);
+// Vérifier si le modèle existe déjà avant de le créer
+const Vehicule = mongoose.models.Vehicule || mongoose.model('Vehicule', vehiculeSchema);
 module.exports = Vehicule;

@@ -8,8 +8,11 @@ require('dotenv').config();
 const { connectToMongoDB } = require('./config/db');
 
 var usersRouter = require('./routes/userRouter');
-var vehiculeRoutes = require('./routes/vehiculeRouter');
+var vehiculeRoutes = require('./routes/vehiculeRouter');  
 var reclamationRoutes = require('./routes/reclaimRouter');
+var promotionRoutes = require('./routes/promotionRouter');
+var scanRoutes = require('./routes/scanRouter');
+var commandeRoutes = require('./routes/commandeRouter');
 
 var app = express();
 
@@ -22,6 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/usersR', usersRouter);
 app.use('/vehiculeRoutes', vehiculeRoutes);
 app.use('/reclamationRoutes', reclamationRoutes);
+app.use('/promotionRoutes', promotionRoutes);
+app.use('/scanRoutes', scanRoutes);
+app.use('/commandeRoutes', commandeRoutes);
 app.use(function(req, res, next) {
   next(createError(404));
 });

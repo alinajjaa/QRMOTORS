@@ -26,19 +26,24 @@ const userSchema = new mongoose.Schema({
     image_user: {
         type: String,
     },
-    dateOfBirth: { // Correction: 'doateOfBirth' → 'dateOfBirth'
-        type: Date,
-        required: true
+    dateOfBirth: {
+        type: Date
     },
     phone: {
         type: String,
-        required: true,
         match: [/^\d{8,15}$/, 'Please fill a valid phone number'] // Plus flexible pour différents pays
     },
     address: {
-        type: String,
-        required: true
-    }
+        type: String
+    },
+    scans: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Scan'
+    }],
+    commandes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Commande'
+    }]
 }, {
     timestamps: true
 });
@@ -56,5 +61,6 @@ userSchema.pre('save', async function(next) {
     }
 });
 
-const User = mongoose.model('User', userSchema);
+// Vérifier si le modèle existe déjà avant de le créer
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 module.exports = User;
